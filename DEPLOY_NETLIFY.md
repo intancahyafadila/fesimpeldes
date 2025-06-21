@@ -276,6 +276,16 @@ export default defineConfig({
 
 ### ❌ Build Gagal
 
+**Error: Node.js version is incorrect (v22.16.0)**
+
+```bash
+# Solusi: Pastikan file konfigurasi sudah benar
+# 1. netlify.toml sudah ada dengan NODE_VERSION = "18.18.0"
+# 2. .nvmrc berisi "18.18.0"
+# 3. Di Netlify dashboard > Site settings > Environment variables
+#    Tambahkan: NODE_VERSION = 18.18.0
+```
+
 **Error: TypeScript errors**
 
 ```bash

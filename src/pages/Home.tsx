@@ -91,12 +91,9 @@ export default function Home() {
                         <br />
                         <span className="text-blue-600 inline-block animate-pulse">Pelayanan Masyarakat Digital</span>
                     </h1>
-                    <p className={`text-base sm:text-lg lg:text-xl text-gray-600 mb-8 max-w-3xl mx-auto px-4 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+                    <p className={`text-base sm:text-lg lg:text-xl text-gray-600 mb-12 max-w-3xl mx-auto px-4 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                         Platform digital yang memudahkan masyarakat dalam mengakses berbagai
                         layanan pemerintahan secara online, cepat, dan transparan.
-                    </p>
-                    <p className="text-sm text-gray-600 mb-8 max-w-3xl mx-auto px-4 transform transition-all duration-1000 delay-500">
-                        Created by <a href="https://github.com/intancahyafadila" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Intan Cahya Fadila</a>
                     </p>
                     <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transform transition-all duration-1000 delay-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
                         <Link to="/login">
@@ -209,9 +206,22 @@ export default function Home() {
                         <p className="text-gray-400 text-xs sm:text-sm">
                             Sistem Informasi Pelayanan Masyarakat Digital
                         </p>
-                        <p className="text-gray-400 text-xs sm:text-sm mt-2">
-                            © 2025 Intan Cahya Fadila.
-                        </p>
+                        <div className="mt-4 space-y-2">
+                            <p className="text-gray-400 text-xs sm:text-sm">
+                                © 2025 Intan Cahya Fadila. All rights reserved.
+                            </p>
+                            <p className="text-gray-500 text-xs">
+                                Developed with ❤️ by{' '}
+                                <a
+                                    href="https://github.com/intancahyafadila"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-400 hover:text-blue-300 transition-colors duration-300 hover:underline"
+                                >
+                                    Intan Cahya Fadila
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </footer>

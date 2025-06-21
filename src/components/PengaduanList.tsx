@@ -18,7 +18,6 @@ interface PengaduanListProps {
 export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = false, title }: PengaduanListProps) {
     const [editingId, setEditingId] = useState<string | null>(null)
     const [editData, setEditData] = useState<ComplaintUpdateRequest>({})
-    const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
 
     const {
         showSuccess,
@@ -38,7 +37,7 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         })
     }
 
-    const getStatusColor = (status: string) => {
+    const getStatusColor = (status: string | undefined) => {
         switch (status) {
             case 'OPEN':
                 return 'bg-blue-100 text-blue-800'
@@ -51,7 +50,7 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         }
     }
 
-    const getStatusText = (status: string) => {
+    const getStatusText = (status: string | undefined) => {
         switch (status) {
             case 'OPEN':
                 return 'Terbuka'
@@ -91,7 +90,6 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         if (!canEdit) return
         try {
             await PengaduanService.deletePengaduan(id)
-            setDeleteConfirm(null)
             onUpdate()
             showSuccess('Berhasil!', 'Pengaduan berhasil dihapus')
         } catch (error: any) {

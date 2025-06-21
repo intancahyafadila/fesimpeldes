@@ -1,15 +1,15 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
 import { Label } from '../components/ui/label'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/card'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/card'
 import { useModal } from '../components/ui/modal'
 import { useAuth } from '../contexts/AuthContext'
 import { isFirebaseConfigured } from '../lib/firebase'
 
 // Lazy load components
-const FirebaseInstructions = lazy(() => import('../components/FirebaseInstructions'))
+
 
 export default function Register() {
     const [formData, setFormData] = useState({

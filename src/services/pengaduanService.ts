@@ -2,15 +2,7 @@ import type { Complaint, ComplaintCreateRequest, ComplaintUpdateRequest } from '
 
 const API_BASE_URL = 'https://api-test-production-ccbf.up.railway.app/api'
 
-interface PaginationResponse {
-  complaints: Complaint[]
-  pagination: {
-    total: number
-    page: number
-    totalPages: number
-    limit: number
-  }
-}
+
 
 export class PengaduanService {
   // CREATE
