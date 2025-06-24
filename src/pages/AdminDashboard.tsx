@@ -1,14 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card'
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { useModal } from '../components/ui/modal'
 import PengaduanList from '../components/PengaduanList'
 import { PengaduanService } from '../services/pengaduanService'
 import type { Complaint } from '../types/complaint'
-
-// Lazy load MongoDB status component
-const MongoDBStatus = lazy(() => import('../components/MongoDBStatus'))
 
 interface AdminData {
     _id: string
