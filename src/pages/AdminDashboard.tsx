@@ -133,25 +133,6 @@ export default function AdminDashboard() {
 
                         {!showPengaduan ? (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-                                <div className="lg:col-span-2">
-                                    <Suspense
-                                        fallback={
-                                            <Card>
-                                                <CardHeader>
-                                                    <CardTitle>🗄️ Status Database MongoDB</CardTitle>
-                                                </CardHeader>
-                                                <CardContent>
-                                                    <div className="flex items-center gap-3">
-                                                        <div className="w-3 h-3 rounded-full bg-gray-300 animate-pulse" />
-                                                        <span className="text-gray-500">Memuat status database...</span>
-                                                    </div>
-                                                </CardContent>
-                                            </Card>
-                                        }
-                                    >
-                                        <MongoDBStatus />
-                                    </Suspense>
-                                </div>
 
                                 <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={handleShowPengaduan}>
                                     <CardHeader>

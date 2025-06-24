@@ -3,7 +3,7 @@ export interface Pengaduan {
   userId: string
   title: string
   description: string
-  status: 'open' | 'in-progress' | 'closed'
+  status: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'RESOLVED' | 'REJECTED'
   createdAt: Date
   updatedAt: Date
 }
@@ -16,5 +16,5 @@ export interface CreatePengaduanRequest {
 export interface UpdatePengaduanRequest {
   title?: string
   description?: string
-  status?: 'open' | 'in-progress' | 'closed'
+  status?: 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'RESOLVED' | 'REJECTED'
 } 

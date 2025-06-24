@@ -1,4 +1,4 @@
-export type ComplaintStatus = 'OPEN' | 'IN-PROGRESS' | 'CLOSED'
+export type ComplaintStatus = 'OPEN' | 'IN_PROGRESS' | 'CLOSED' | 'RESOLVED' | 'REJECTED'
 export type ComplaintCategory = 'INFRASTRUCTURE' | 'PUBLIC_SERVICE' | 'OTHER'
 export type ComplaintPriority = 'LOW' | 'MEDIUM' | 'HIGH'
 

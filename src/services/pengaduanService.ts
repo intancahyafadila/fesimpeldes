@@ -22,7 +22,7 @@ export class PengaduanService {
       images: [],
     } as any
 
-    const token = localStorage.getItem('userToken')
+    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken')
     const res = await fetch(`${API_BASE_URL}/complaints`, {
       method: 'POST',
       headers: {
@@ -45,7 +45,12 @@ export class PengaduanService {
     if (params.page) qp.append('page', params.page.toString())
     if (params.limit) qp.append('limit', params.limit.toString())
 
-    const res = await fetch(`${API_BASE_URL}/complaints?${qp.toString()}`)
+    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken')
+    const res = await fetch(`${API_BASE_URL}/complaints?${qp.toString()}`, {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    })
     const json = await res.json()
     if (!res.ok || !json.success) {
       throw new Error(json.message || 'Gagal memuat pengaduan')
@@ -59,7 +64,12 @@ export class PengaduanService {
     if (params?.page) qp.append('page', params.page.toString())
     if (params?.limit) qp.append('limit', params.limit.toString())
 
-    const res = await fetch(`${API_BASE_URL}/complaints?${qp.toString()}`)
+    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken')
+    const res = await fetch(`${API_BASE_URL}/complaints?${qp.toString()}`, {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    })
     const json = await res.json()
     if (!res.ok || !json.success) {
       throw new Error(json.message || 'Gagal memuat pengaduan')
@@ -69,11 +79,27 @@ export class PengaduanService {
 
   // UPDATE status/title/desc
   static async updatePengaduan(id: string, updates: ComplaintUpdateRequest): Promise<Complaint> {
-    const res = await fetch(`${API_BASE_URL}/complaints/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updates),
+    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken')
+
+    // Jika hanya field status yang di-update, gunakan endpoint khusus PATCH /:id/status
+    const isOnlyStatus =
+      Object.keys(updates).length === 1 && typeof updates.status !== 'undefined'
+
+    const url = isOnlyStatus
+      ? `${API_BASE_URL}/complaints/${id}/status`
+      : `${API_BASE_URL}/complaints/${id}`
+
+    const method = isOnlyStatus ? 'PATCH' : 'PUT'
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(isOnlyStatus ? { status: updates.status } : updates),
     })
+
     const json = await res.json()
     if (!res.ok || !json.success) {
       throw new Error(json.message || 'Gagal memperbarui pengaduan')
@@ -82,7 +108,13 @@ export class PengaduanService {
   }
 
   static async deletePengaduan(id: string): Promise<void> {
-    const res = await fetch(`${API_BASE_URL}/complaints/${id}`, { method: 'DELETE' })
+    const token = localStorage.getItem('adminToken') || localStorage.getItem('userToken')
+    const res = await fetch(`${API_BASE_URL}/complaints/${id}`, {
+      method: 'DELETE',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    })
     if (!res.ok) {
       const json = await res.json()
       throw new Error(json.message || 'Gagal menghapus pengaduan')

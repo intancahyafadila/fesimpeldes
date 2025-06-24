@@ -41,10 +41,14 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         switch (status) {
             case 'OPEN':
                 return 'bg-blue-100 text-blue-800'
-            case 'IN-PROGRESS':
+            case 'IN_PROGRESS':
                 return 'bg-yellow-100 text-yellow-800'
             case 'CLOSED':
                 return 'bg-green-100 text-green-800'
+            case 'RESOLVED':
+                return 'bg-green-200 text-green-800'
+            case 'REJECTED':
+                return 'bg-red-200 text-red-800'
             default:
                 return 'bg-gray-100 text-gray-800'
         }
@@ -54,10 +58,14 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         switch (status) {
             case 'OPEN':
                 return 'Terbuka'
-            case 'IN-PROGRESS':
+            case 'IN_PROGRESS':
                 return 'Diproses'
             case 'CLOSED':
                 return 'Selesai'
+            case 'RESOLVED':
+                return 'Terselesaikan'
+            case 'REJECTED':
+                return 'Ditolak'
             default:
                 return status
         }
@@ -73,9 +81,27 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
         })
     }
 
-    const handleSave = async (id: string) => {
+    const handleSave = async (item: Complaint) => {
         try {
-            await PengaduanService.updatePengaduan(id, editData)
+            // Kirim hanya field yang berubah
+            const updates: ComplaintUpdateRequest = {}
+            if (typeof editData.title !== 'undefined' && editData.title !== item.title) {
+                updates.title = editData.title
+            }
+            if (typeof editData.description !== 'undefined' && editData.description !== item.description) {
+                updates.description = editData.description
+            }
+            if (typeof editData.status !== 'undefined' && editData.status !== item.status) {
+                updates.status = editData.status
+            }
+
+            // Jika tidak ada perubahan, cukup batalkan edit mode
+            if (Object.keys(updates).length === 0) {
+                handleCancel()
+                return
+            }
+
+            await PengaduanService.updatePengaduan(item._id!, updates)
             setEditingId(null)
             setEditData({})
             onUpdate()
@@ -179,7 +205,7 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
                                             className="text-xs px-2 py-1 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         >
                                             <option value="OPEN">Terbuka</option>
-                                            <option value="IN-PROGRESS">Diproses</option>
+                                            <option value="IN_PROGRESS">Diproses</option>
                                             <option value="CLOSED">Selesai</option>
                                         </select>
                                     ) : (
@@ -220,7 +246,7 @@ export default function PengaduanList({ pengaduan, onUpdate, loading, canEdit = 
                                 {editingId === item._id ? (
                                     <>
                                         <Button
-                                            onClick={() => handleSave(item._id!)}
+                                            onClick={() => handleSave(item)}
                                             size="sm"
                                             className="w-full sm:w-auto"
                                         >

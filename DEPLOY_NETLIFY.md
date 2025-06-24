@@ -322,8 +322,19 @@ Pastikan file `netlify.toml` ada dan berisi redirects:
 
 ### ❌ Firebase tidak berfungsi
 
+**Error: auth/unauthorized-domain**
+
+```bash
+# Solusi: Tambahkan domain Netlify ke Firebase Console
+# 1. Buka console.firebase.google.com
+# 2. Authentication > Settings > Authorized domains
+# 3. Add domain: your-app-name.netlify.app
+# 4. Juga tambahkan custom domain jika ada
+```
+
 1. **Check Firebase config**: Pastikan environment variables Firebase sudah benar
 2. **Domain authorization**: Tambahkan domain Netlify ke Firebase Console > Authentication > Settings > Authorized domains
+3. **Google Sign-In**: Pastikan Google provider sudah enabled di Authentication > Sign-in method
 
 ## 📊 Monitoring dan Analytics
 
